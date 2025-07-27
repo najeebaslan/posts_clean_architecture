@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">Income_expense_tracker</string>
+    <string name="title_activity_custom_text_field">CustomTextField</string>
+</resources>
