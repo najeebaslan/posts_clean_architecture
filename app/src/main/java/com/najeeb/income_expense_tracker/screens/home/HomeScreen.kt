@@ -24,7 +24,7 @@ import com.najeeb.income_expense_tracker.ui.theme.Income_expense_trackerTheme
 import com.najeeb.income_expense_tracker.view_model.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
-class MainActivity : ComponentActivity() {
+class HomeScreen : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

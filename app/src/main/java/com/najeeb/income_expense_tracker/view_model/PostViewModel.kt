@@ -1,57 +1,76 @@
 package com.najeeb.income_expense_tracker.view_model
+
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.najeeb.income_expense_tracker.app.IncomeExpenseApplication
 import com.najeeb.income_expense_tracker.data.PostsApiService
+import com.najeeb.income_expense_tracker.screens.posts.PostDataBase
+import com.najeeb.income_expense_tracker.screens.posts.PostFavoriteState
 import com.najeeb.income_expense_tracker.screens.posts.PostModel
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
+import kotlinx.coroutines.CoroutineExceptionHandler
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class PostViewModel() : ViewModel() {
-    var state by mutableStateOf(PostModel.emptyPostModel());
+    var state by mutableStateOf(PostModel.emptyPosts());
+    val getDAO = PostDataBase.getDaoInstance(IncomeExpenseApplication.getAppContext())
     private var apiService: PostsApiService
+    private val errorHandler = CoroutineExceptionHandler { _, throwable ->
+        throwable.printStackTrace()
+    }
+
 
     init {
         val retrofit: Retrofit = Retrofit.Builder().addConverterFactory(
             GsonConverterFactory.create()
-        ).baseUrl("https://jsonplaceholder.typicode.com/").build()
-        apiService = retrofit.create(PostsApiService::class.java)
+        ).baseUrl(BASE_URL).build()
 
+        apiService = retrofit.create(PostsApiService::class.java)
+        getPosts()
     }
 
     fun getPosts() {
-        apiService.getAllPosts().enqueue(object : Callback<List<PostModel>> {
-            override fun onResponse(
-                call: Call<List<PostModel>?>,
-                response: Response<List<PostModel>?>
-            ) {
-                if (response.isSuccessful) {
-                    state = response.body() ?: emptyList()
-                } else {
-                    state = PostModel.emptyPostModel()
-                }
+        viewModelScope.launch(errorHandler) {
+            state = handelGetPosts()
+
+        }
+    }
+
+    private suspend fun handelGetPosts() =
+        withContext(Dispatchers.IO) {
+            try {
+                val posts = apiService.getAllPosts()
+                getDAO.addAllPosts(posts)
+                return@withContext posts
+            } catch (e: Exception) {
+                return@withContext getDAO.getAllPosts()
             }
+        }
 
-            override fun onFailure(
-                call: Call<List<PostModel>?>,
-                t: Throwable
-            ) {
-                state = PostModel.emptyPostModel()
-                t.printStackTrace()
-                println("Error: ${t.message}")
-                println("Error: ${t.cause}")
-                println("Error: ${t.localizedMessage}")
-                println("Error: ${t.stackTrace}")
+    fun toggleFavoriteState(postId: Int) {
+        val posts = state.toMutableList();
+        val indexPost = posts.indexOfFirst { it.id == postId }
+        posts[indexPost] = posts[indexPost].copy(isFavorite = !posts[indexPost].isFavorite)
 
-            }
+        viewModelScope.launch(errorHandler) {
+            updatePost(posts[indexPost])
+            state = posts
 
-        })
+        }
+    }
 
+    suspend fun updatePost(post: PostModel) {
+        getDAO.updatePost(PostFavoriteState(post.isFavorite, post.id))
+    }
 
+    companion object {
+        private const val BASE_URL = "https://jsonplaceholder.typicode.com/"
     }
 }
 

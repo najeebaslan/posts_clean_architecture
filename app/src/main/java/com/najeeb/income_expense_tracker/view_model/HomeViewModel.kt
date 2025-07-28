@@ -35,6 +35,7 @@ class HomeViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel(
             job.copy(isFavorite = savedIds.contains(job.id))
         }
     }
+
     companion object {
         // This for stored constants types in ViewModel
         const val SELECTED_JOBS_KEY = "selectedJobs"

@@ -85,7 +85,6 @@ fun CardJobs(job: JobModel, onClick: (Int) -> Unit) {
 @Composable
 fun FavoriteIconButton(onClick: (Int) -> Unit, isFavorite: Boolean, jobId: Int) {
 
-
     IconButton(
         onClick = { onClick(jobId) },
         content = {

@@ -11,33 +11,32 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Place
-import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.najeeb.income_expense_tracker.screens.home.FavoriteIconButton
 
 @Composable
-fun PostCard(post: PostModel, onClick: (Int) -> Unit) {
+fun PostCard(post: PostModel, onClick: (Int) -> Unit, onClickFavorite: (Int) -> Unit) {
 
     Card(
         colors = CardDefaults.cardColors(
-            containerColor = Color.White,  // Now properly referenced
+            containerColor = Color.White,
             contentColor = MaterialTheme.colorScheme.onSurface
         ),
 
         modifier = Modifier
             .fillMaxWidth()
-            .padding(bottom = 10.dp).clickable{
-                onClick(post.userId)
+            .padding(bottom = 10.dp)
+            .clickable {
+                onClick(post.id)
             },
         shape = RoundedCornerShape(8.dp),
         border = BorderStroke(
@@ -75,11 +74,16 @@ fun PostCard(post: PostModel, onClick: (Int) -> Unit) {
                     maxLines = 2,
                     style = MaterialTheme.typography.bodyMedium,
                     overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant  // Secondary text color
+                    color = MaterialTheme.colorScheme.onSurfaceVariant
 
                 )
             }
 
+            FavoriteIconButton(
+                onClickFavorite,
+                isFavorite = post.isFavorite,
+                jobId = post.id
+            )
 
         }
     }
