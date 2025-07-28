@@ -1,16 +1,11 @@
 @file:OptIn(ExperimentalMaterial3Api::class)
 
-package com.najeeb.income_expense_tracker.ui.screens
-
-
+package com.najeeb.income_expense_tracker.screens.home
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.PaddingValues
-
 import androidx.compose.foundation.layout.fillMaxSize
-
-
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -21,16 +16,16 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.najeeb.income_expense_tracker.ui.widgets.CardJobs
-import com.najeeb.income_expense_tracker.ui.widgets.listJobs
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.najeeb.income_expense_tracker.ui.theme.Income_expense_trackerTheme
+import com.najeeb.income_expense_tracker.view_model.HomeViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 class MainActivity : ComponentActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -43,6 +38,7 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
 @Composable
 private fun AppTopBar() {
     TopAppBar(
@@ -61,6 +57,8 @@ private fun AppTopBar() {
 
 @Composable
 private fun JobListContent(innerPadding: PaddingValues) {
+    val vm: HomeViewModel = viewModel()
+
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
@@ -69,8 +67,8 @@ private fun JobListContent(innerPadding: PaddingValues) {
         horizontalAlignment = Alignment.CenterHorizontally,
         contentPadding = PaddingValues(vertical = 20.dp)
     ) {
-        items(listJobs) { job ->
-            CardJobs(job = job)
+        items(vm.state) { job ->
+            CardJobs(job) { vm.toggleFavoriteState(it) }
         }
     }
 }
