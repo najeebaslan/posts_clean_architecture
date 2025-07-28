@@ -73,6 +73,9 @@ dependencies {
     implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleRuntime")
 
+    // Retrofit
+    implementation("com.squareup.retrofit2:retrofit:2.9.0")
+    implementation("com.squareup.retrofit2:converter-gson:2.9.0")
     // Saved State
     implementation ("androidx.savedstate:savedstate:1.2.1")
     implementation("androidx.core:core-ktx:1.9.0")
