@@ -11,19 +11,25 @@ import com.najeeb.income_expense_tracker.data.models.PostModel
 
 @Dao
 interface PostDAO {
-    @Query("SELECT * FROM posts")
-    suspend fun getAllPosts(): List<PostModel>
+  @Query("SELECT * FROM posts")
+  suspend fun getAllPosts(): List<PostModel>
 
-    @Query("SELECT * FROM posts WHERE id = :id")
-    suspend fun getPostById(id: Int): PostModel?
+  @Query("SELECT * FROM posts WHERE id = :id")
+  suspend fun getPostById(id: Int): PostModel?
 
-    @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
-    suspend fun addAllPosts(post: List<PostModel>)
+  @Insert(onConflict = OnConflictStrategy.Companion.REPLACE)
+  suspend fun addAllPosts(post: List<PostModel>)
 
-    @Update(entity = PostModel::class)
-    suspend fun updatePost(postFavoriteState: PostFavoriteState)
+  @Update(entity = PostModel::class)
+  suspend fun updatePost(postFavoriteState: PostFavoriteState)
 
-    @Delete
-    suspend fun deletePost(post: PostModel)
+  @Delete
+  suspend fun deletePost(post: PostModel)
+
+  @Query("SELECT * FROM posts WHERE isFavorite = 1")
+  suspend fun getAllFavoritePosts(): List<PostFavoriteState>
+
+  @Update(entity = PostModel::class)
+  suspend fun updateAllPosts(favoriteState: List<PostFavoriteState>)
 
 }

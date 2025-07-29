@@ -89,3 +89,5 @@ fun PostCard(post: PostModel, onClick: (Int) -> Unit, onClickFavorite: (Int) -> 
     }
   }
 }
+
+
