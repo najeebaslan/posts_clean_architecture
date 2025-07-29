@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.najeeb.income_expense_tracker.view_model.PostDetailsViewModel
+import com.najeeb.income_expense_tracker.view_models.PostDetailsViewModel
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
@@ -25,6 +25,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.najeeb.income_expense_tracker.data.models.PostModel
 
 @Composable
 fun DetailsPostScreen(navController: NavController) {

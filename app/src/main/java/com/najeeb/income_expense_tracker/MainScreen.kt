@@ -18,38 +18,32 @@ import com.najeeb.income_expense_tracker.ui.theme.Income_expense_trackerTheme
 
 class MainActivity : ComponentActivity() {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContent {
-            Income_expense_trackerTheme(content = { IncomeExpenseAroundApp() })
-        }
+  override fun onCreate(savedInstanceState: Bundle?) {
+    super.onCreate(savedInstanceState)
+    setContent {
+      Income_expense_trackerTheme(content = { IncomeExpenseAroundApp() })
     }
+  }
 }
 
 @Composable
 private fun IncomeExpenseAroundApp() {
-    val navController = rememberNavController()
+  val navController = rememberNavController()
 
-    NavHost(navController = navController, startDestination = "posts") {
-        composable(route = "login") { LoginScreen() }
-        composable(route = "home") { HomeScreen() }
-        composable(route = "posts") {
-            PostsScreen(onClick = {
-                navController.navigate("posts/$it")
-            })
-        }
-
-        composable(
-            route = "posts/{postId}",
-            arguments = listOf(navArgument("postId") { type = NavType.IntType }),
-            deepLinks = listOf(
-                navDeepLink {
-                    uriPattern = "https://jsonplaceholder.typicode.com/posts/{postId}"
-                }
-            )
-
-        ) {
-            DetailsPostScreen(navController =navController )
-        }
+  NavHost(navController = navController, startDestination = "posts") {
+    composable(route = "login") { LoginScreen() }
+    composable(route = "home") { HomeScreen() }
+    composable(route = "posts") {
+      PostsScreen(onClick = { navController.navigate("posts/$it") })
     }
+
+    composable(
+      route = "posts/{postId}",
+      arguments = listOf(navArgument("postId") { type = NavType.IntType }),
+      deepLinks = listOf(
+        navDeepLink { uriPattern = "https://jsonplaceholder.typicode.com/posts/{postId}" })
+    ) {
+      DetailsPostScreen(navController = navController)
+    }
+  }
 }

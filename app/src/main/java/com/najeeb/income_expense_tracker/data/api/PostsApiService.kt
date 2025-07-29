@@ -1,10 +1,8 @@
-package com.najeeb.income_expense_tracker.data
+package com.najeeb.income_expense_tracker.data.api
 
-import com.najeeb.income_expense_tracker.screens.posts.PostModel
-import retrofit2.Call
+import com.najeeb.income_expense_tracker.data.models.PostModel
 import retrofit2.http.GET
 import retrofit2.http.Path
-import retrofit2.http.Query
 
 interface PostsApiService {
     @GET("posts")

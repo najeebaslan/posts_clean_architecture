@@ -1,12 +1,12 @@
-package com.najeeb.income_expense_tracker.view_model
+package com.najeeb.income_expense_tracker.view_models
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel
-import com.najeeb.income_expense_tracker.screens.home.JobModel
-import com.najeeb.income_expense_tracker.screens.home.listJobs
+import com.najeeb.income_expense_tracker.data.models.JobModel
+import com.najeeb.income_expense_tracker.data.models.listJobs
 
 class HomeViewModel(private val savedStateHandle: SavedStateHandle) : ViewModel() {
     var state by mutableStateOf(restoreSelectedJobs());

@@ -1,10 +1,11 @@
-package com.najeeb.income_expense_tracker.screens.posts
+package com.najeeb.income_expense_tracker.data.database
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-
+import com.najeeb.income_expense_tracker.data.models.PostModel
+import com.najeeb.income_expense_tracker.data.database.PostDAO
 
 @Database(entities = [PostModel::class], version = 1, exportSchema = false)
 abstract class PostDataBase : RoomDatabase() {

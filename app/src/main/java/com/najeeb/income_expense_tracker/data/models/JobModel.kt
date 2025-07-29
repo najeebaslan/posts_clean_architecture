@@ -1,4 +1,4 @@
-package com.najeeb.income_expense_tracker.screens.home
+package com.najeeb.income_expense_tracker.data.models
 
 
 val listJobs = listOf<JobModel>(

@@ -1,4 +1,4 @@
-package com.najeeb.income_expense_tracker.screens.posts
+package com.najeeb.income_expense_tracker.data.models
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -22,10 +22,6 @@ data class PostModel(
 
 
     companion object {
-        fun emptyPosts(): List<PostModel> {
-            return listOf(PostModel(1, 1, "title1", "body1"))
-        }
-
         fun emptyPost(): PostModel {
             return PostModel(1, 1, "title1", "body1")
         }

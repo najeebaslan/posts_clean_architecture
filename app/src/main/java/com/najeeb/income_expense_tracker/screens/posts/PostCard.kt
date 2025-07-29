@@ -21,70 +21,71 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.najeeb.income_expense_tracker.data.models.PostModel
 import com.najeeb.income_expense_tracker.screens.home.FavoriteIconButton
 
 @Composable
 fun PostCard(post: PostModel, onClick: (Int) -> Unit, onClickFavorite: (Int) -> Unit) {
 
-    Card(
-        colors = CardDefaults.cardColors(
-            containerColor = Color.White,
-            contentColor = MaterialTheme.colorScheme.onSurface
-        ),
+  Card(
+    colors = CardDefaults.cardColors(
+      containerColor = Color.White,
+      contentColor = MaterialTheme.colorScheme.onSurface
+    ),
 
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(bottom = 10.dp)
-            .clickable {
-                onClick(post.id)
-            },
-        shape = RoundedCornerShape(8.dp),
-        border = BorderStroke(
-            width = 1.dp, color = Color.Gray.copy(alpha = 0.5f)
-        ),
+    modifier = Modifier
+      .fillMaxWidth()
+      .padding(bottom = 10.dp)
+      .clickable {
+        onClick(post.id)
+      },
+    shape = RoundedCornerShape(8.dp),
+    border = BorderStroke(
+      width = 1.dp, color = Color.Gray.copy(alpha = 0.5f)
+    ),
+  ) {
+
+    Row(
+      horizontalArrangement = Arrangement.SpaceAround,
+      verticalAlignment = Alignment.CenterVertically,
+      modifier = Modifier
+        .padding(8.dp)
+        .fillMaxWidth(),
     ) {
+      Icon(
+        Icons.Filled.Place,
+        contentDescription = "icon place",
+      )
 
-        Row(
-            horizontalArrangement = Arrangement.SpaceAround,
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(8.dp)
-                .fillMaxWidth(),
-        ) {
-            Icon(
-                Icons.Filled.Place,
-                contentDescription = "icon place",
-            )
+      Column(
+        modifier = Modifier
+          .weight(1f)
+          .padding(start = 8.dp)
+      ) {
+        Text(
+          post.title,
+          style = MaterialTheme.typography.titleMedium,
+          maxLines = 1,
+          overflow = TextOverflow.Ellipsis,
+          color = MaterialTheme.colorScheme.onSurface
+        )
 
-            Column(
-                modifier = Modifier
-                    .weight(1f)
-                    .padding(start = 8.dp)
-            ) {
-                Text(
-                    post.title,
-                    style = MaterialTheme.typography.titleMedium,
-                    maxLines = 1,
-                    overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onSurface
-                )
+        Text(
+          post.body,
+          maxLines = 2,
+          style = MaterialTheme.typography.bodyMedium,
+          overflow = TextOverflow.Ellipsis,
+          color = MaterialTheme.colorScheme.onSurfaceVariant
 
-                Text(
-                    post.body,
-                    maxLines = 2,
-                    style = MaterialTheme.typography.bodyMedium,
-                    overflow = TextOverflow.Ellipsis,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+        )
+      }
 
-                )
-            }
+      FavoriteIconButton(
+        onClickFavorite,
+        isFavorite = post.isFavorite,
+        jobId = post.id
+      )
 
-            FavoriteIconButton(
-                onClickFavorite,
-                isFavorite = post.isFavorite,
-                jobId = post.id
-            )
-
-        }
     }
+  }
 }

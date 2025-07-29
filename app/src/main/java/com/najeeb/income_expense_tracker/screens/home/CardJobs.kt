@@ -22,6 +22,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.najeeb.income_expense_tracker.data.models.JobModel
 
 @Composable
 fun CardJobs(job: JobModel, onClick: (Int) -> Unit) {
