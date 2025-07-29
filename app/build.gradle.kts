@@ -77,6 +77,7 @@ dependencies {
     // Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
+    implementation("com.squareup.okhttp3:logging-interceptor:4.11.0")
 
     // Saved State
     implementation ("androidx.savedstate:savedstate:1.2.1")
@@ -93,7 +94,8 @@ dependencies {
     // Graphics and Preview (already in BOM, but explicit is fine)
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-
+    // Shimmer Loading
+    implementation("com.valentinilk.shimmer:compose-shimmer:1.0.5")
     // Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")

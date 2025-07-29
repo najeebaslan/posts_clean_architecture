@@ -42,6 +42,7 @@ fun Income_expense_trackerTheme(
     darkTheme: Boolean = isSystemInDarkTheme(),
     // Dynamic color is available on Android 12+
     dynamicColor: Boolean = true,
+
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
@@ -66,5 +67,6 @@ fun Income_expense_trackerTheme(
         colorScheme = colorScheme,
         typography = Typography,
         content = content
+
     )
 }
