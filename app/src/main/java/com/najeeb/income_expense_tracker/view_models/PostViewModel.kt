@@ -7,7 +7,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.najeeb.income_expense_tracker.data.repos.PostRepository
+import com.najeeb.income_expense_tracker.domain.usecases.GetInitialPostsUseCase
+import com.najeeb.income_expense_tracker.domain.usecases.ToggleFavoritePostUseCase
 import kotlinx.coroutines.CoroutineExceptionHandler
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -19,11 +20,10 @@ class PostViewModel : ViewModel() {
   private var _postsState by mutableStateOf(
     PostScreenState(posts = emptyList(), isLoading = true)
   )
-
   val postsState: State<PostScreenState> get() = derivedStateOf { _postsState }
 
-  val postRepo = PostRepository()
-
+  val getInitialPostsUseCase = GetInitialPostsUseCase()
+  val toggleFavoritePostUseCase = ToggleFavoritePostUseCase()
 
   private val coroutineExceptionHandler = CoroutineExceptionHandler { _, throwable ->
     throwable.printStackTrace()
@@ -44,7 +44,7 @@ class PostViewModel : ViewModel() {
 
   fun getPosts() {
     viewModelScope.launch(coroutineExceptionHandler) {
-      val receivedPosts = postRepo.getAllPosts()
+      val receivedPosts = getInitialPostsUseCase()
       _postsState = _postsState.copy(posts = receivedPosts, isLoading = false)
     }
   }
@@ -56,7 +56,8 @@ class PostViewModel : ViewModel() {
 
     viewModelScope.launch(Dispatchers.IO + coroutineExceptionHandler) {
       if (index != -1) {
-        val updatedPost = postRepo.toggleFavoritePost(postId, !currentPosts[index].isFavorite)
+        val updatedPost = toggleFavoritePostUseCase(postId, currentPosts[index].isFavorite)
+
         _postsState = _postsState.copy(posts = updatedPost)
       }
     }
