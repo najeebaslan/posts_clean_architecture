@@ -1,4 +1,5 @@
 package com.najeeb.income_expense_tracker.data.repos
+
 import com.najeeb.income_expense_tracker.IncomeExpenseApplication
 import com.najeeb.income_expense_tracker.core.RetrofitFactory.createPostsRetrofitFactory
 import com.najeeb.income_expense_tracker.data.api.PostsApiService
@@ -18,7 +19,7 @@ class PostRepository {
     createPostsRetrofitFactory(PostsApiService::class.java)
   }
 
-  suspend fun getAllPosts() = withContext(Dispatchers.IO) {
+  suspend fun loadPosts() = withContext(Dispatchers.IO) {
     try {
       updateLocalData()
       postDao.getAllPosts()
@@ -27,8 +28,10 @@ class PostRepository {
         throw Exception("No data available. Please connect to the internet to fetch data or try again.")
       }
     }
-    postDao.getAllPosts()
+  }
 
+  suspend fun getAllPosts(): List<PostModel> = withContext(Dispatchers.IO) {
+    return@withContext postDao.getAllPosts()
   }
 
   private suspend fun updateLocalData() {
@@ -44,15 +47,16 @@ class PostRepository {
     }
     postDao.addAllPosts(postsToInsert)
   }
-   suspend fun fetchPostById(postId: Int): PostModel {
+
+  suspend fun fetchPostById(postId: Int): PostModel {
     return withContext(Dispatchers.IO) {
       return@withContext postDao.getPostById(postId) ?: apiService.getPostById(postId)
     }
   }
 
-  suspend fun toggleFavoritePost(postId: Int, isFavorite: Boolean) =
+  suspend fun toggleFavoritePost(id: Int, state: Boolean) =
     withContext(Dispatchers.IO) {
-      postDao.updatePost(PostFavoriteState(isFavorite, postId))
+      postDao.updatePost(PostFavoriteState(isFavorite = !state, id = id))
       return@withContext postDao.getAllPosts()
     }
 
