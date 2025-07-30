@@ -1,9 +1,17 @@
 
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-kapt")
-    id("org.jetbrains.kotlin.plugin.compose") version "2.2.0"
+//    id("com.android.application")
+//    id("org.jetbrains.kotlin.android")
+//    id("kotlin-kapt")
+//    id("org.jetbrains.kotlin.plugin.compose") version "2.1.0"
+
+        id("com.android.application")
+        id("org.jetbrains.kotlin.android")
+        id("kotlin-kapt") // Keep this for Hilt's annotation processing
+        id("org.jetbrains.kotlin.plugin.compose") version "2.1.0"
+        id("com.google.dagger.hilt.android") // <-- ADD THIS LINE
+
+
 
 
 }
@@ -90,6 +98,13 @@ dependencies {
     implementation("androidx.room:room-runtime:2.7.1")
     implementation("androidx.room:room-ktx:2.7.1")
     kapt("androidx.room:room-compiler:2.7.1")
+
+    // Dagger - Hilt
+
+    implementation("com.google.dagger:hilt-android:2.57")
+    kapt("com.google.dagger:hilt-compiler:2.57")
+    kapt("androidx.hilt:hilt-compiler:1.2.0") // This line might be problematic
+    implementation("androidx.hilt:hilt-navigation-compose:1.2.0")
 
     // Graphics and Preview (already in BOM, but explicit is fine)
     implementation("androidx.compose.ui:ui-graphics")
