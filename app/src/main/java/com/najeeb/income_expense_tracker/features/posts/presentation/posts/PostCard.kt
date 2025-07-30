@@ -1,4 +1,4 @@
-package com.najeeb.income_expense_tracker.features.posts.presentation.screens.posts
+package com.najeeb.income_expense_tracker.features.posts.presentation.posts
 
 import androidx.compose.runtime.Composable
 import androidx.compose.foundation.BorderStroke
@@ -11,10 +11,13 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.Place
+import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.ui.Alignment
@@ -22,7 +25,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.najeeb.income_expense_tracker.features.posts.data.models.PostModel
-import com.najeeb.income_expense_tracker.features.home.presentation.screens.home.FavoriteIconButton
 
 @Composable
 fun PostCard(post: PostModel, onClick: (Int) -> Unit, onClickFavorite: (Int) -> Unit) {
@@ -64,10 +66,9 @@ fun PostCard(post: PostModel, onClick: (Int) -> Unit, onClickFavorite: (Int) -> 
       ) {
         Text(
           post.title,
-          style = MaterialTheme.typography.titleMedium,
+          style = MaterialTheme.typography.titleLarge,
           maxLines = 1,
           overflow = TextOverflow.Ellipsis,
-          color = MaterialTheme.colorScheme.onSurface
         )
 
         Text(
@@ -75,8 +76,7 @@ fun PostCard(post: PostModel, onClick: (Int) -> Unit, onClickFavorite: (Int) -> 
           maxLines = 2,
           style = MaterialTheme.typography.bodyMedium,
           overflow = TextOverflow.Ellipsis,
-          color = MaterialTheme.colorScheme.onSurfaceVariant
-
+          modifier = Modifier.padding(top = 4.dp)
         )
       }
 
@@ -91,3 +91,20 @@ fun PostCard(post: PostModel, onClick: (Int) -> Unit, onClickFavorite: (Int) -> 
 }
 
 
+@Composable
+fun FavoriteIconButton(onClick: (Int) -> Unit, isFavorite: Boolean, jobId: Int) {
+
+  IconButton(
+    onClick = { onClick(jobId) },
+    content = {
+      Icon(
+        if (isFavorite) {
+          Icons.Filled.Favorite;
+        } else {
+          Icons.Outlined.FavoriteBorder;
+        },
+        contentDescription = "Icon Favorite",
+        tint = if (isFavorite) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant
+      )
+    })
+}
