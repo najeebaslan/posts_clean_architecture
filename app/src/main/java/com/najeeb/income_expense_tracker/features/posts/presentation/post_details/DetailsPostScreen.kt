@@ -1,4 +1,4 @@
-package com.najeeb.income_expense_tracker.features.posts.presentation.screens.post_details
+package com.najeeb.income_expense_tracker.features.posts.presentation.post_details
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -6,16 +6,18 @@ import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.najeeb.income_expense_tracker.core.component.ErrorMessage
-import com.najeeb.income_expense_tracker.core.component.LoadingIndicator
-import com.najeeb.income_expense_tracker.features.posts.presentation.view_models.PostDetailsViewModel
+import com.najeeb.income_expense_tracker.features.posts.data.models.PostModel
+import com.najeeb.income_expense_tracker.features.posts.presentation.component.ErrorMessage
+import com.najeeb.income_expense_tracker.features.posts.presentation.component.LoadingIndicator
+import com.najeeb.income_expense_tracker.features.posts.presentation.view_models.PostDetailsScreenStates
 
 @Composable
-fun DetailsPostScreen(navController: NavController,viewModel:PostDetailsViewModel ) {
+fun DetailsPostScreen(navController: NavController,state: PostDetailsScreenStates) {
 
-  val state = viewModel.states.value;
   Scaffold(
     modifier = Modifier,
     topBar = { PostDetailsTopBar(navController = navController) },

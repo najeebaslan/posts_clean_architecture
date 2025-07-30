@@ -1,4 +1,4 @@
-package com.najeeb.income_expense_tracker.features.posts.presentation.screens.post_details
+package com.najeeb.income_expense_tracker.features.posts.presentation.post_details
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer

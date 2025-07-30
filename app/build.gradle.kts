@@ -100,7 +100,6 @@ dependencies {
     kapt("androidx.room:room-compiler:2.7.1")
 
     // Dagger - Hilt
-
     implementation("com.google.dagger:hilt-android:2.57")
     kapt("com.google.dagger:hilt-compiler:2.57")
     kapt("androidx.hilt:hilt-compiler:1.2.0") // This line might be problematic
@@ -109,8 +108,12 @@ dependencies {
     // Graphics and Preview (already in BOM, but explicit is fine)
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
+
     // Shimmer Loading
     implementation("com.valentinilk.shimmer:compose-shimmer:1.0.5")
+    // Theme
+    implementation("com.google.accompanist:accompanist-systemuicontroller:0.34.0")
+
     // Testing
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.2.1")

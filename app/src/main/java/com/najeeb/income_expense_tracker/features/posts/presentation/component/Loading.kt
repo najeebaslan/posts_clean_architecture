@@ -1,4 +1,4 @@
-package com.najeeb.income_expense_tracker.core.component
+package com.najeeb.income_expense_tracker.features.posts.presentation.component
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.CircularProgressIndicator

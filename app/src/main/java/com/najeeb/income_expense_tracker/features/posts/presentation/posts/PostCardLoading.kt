@@ -1,4 +1,4 @@
-package com.najeeb.income_expense_tracker.features.posts.presentation.screens.posts
+package com.najeeb.income_expense_tracker.features.posts.presentation.posts
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.background
@@ -23,7 +23,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
+import com.najeeb.income_expense_tracker.core.DescriptionsTests
 import com.valentinilk.shimmer.Shimmer
 import com.valentinilk.shimmer.ShimmerBounds
 import com.valentinilk.shimmer.rememberShimmer
@@ -32,17 +35,20 @@ import com.valentinilk.shimmer.shimmer
 
 @Composable
 fun PostCardShimmer(
-  modifier: Modifier ,
+  modifier: Modifier,
   shimmer: Shimmer = rememberShimmer(ShimmerBounds.View)
 ) {
   LazyColumn(
+
     modifier = modifier
+      // I use [semantics] for Testing
+      .semantics() { this.contentDescription = DescriptionsTests.POST_LIST_LOADING }
       .fillMaxSize(),
     contentPadding = PaddingValues(vertical = 20.dp, horizontal = 20.dp),
     verticalArrangement = Arrangement.spacedBy(5.dp)
   ) {
 
-    items(10){
+    items(10) {
       Card(
         colors = CardDefaults.cardColors(
           containerColor = Color.White,

@@ -1,4 +1,4 @@
-package com.najeeb.income_expense_tracker.features.posts.presentation.screens.posts
+package com.najeeb.income_expense_tracker.features.posts.presentation.posts
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.LazyColumn
@@ -8,15 +8,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import com.najeeb.income_expense_tracker.core.component.ErrorMessage
+import com.najeeb.income_expense_tracker.features.posts.presentation.component.ErrorMessage
 import com.najeeb.income_expense_tracker.features.posts.data.models.PostModel
 import com.najeeb.income_expense_tracker.features.posts.presentation.view_models.PostScreenState
-import com.najeeb.income_expense_tracker.features.posts.presentation.view_models.PostViewModel
 
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PostsScreen(onClick: (Int) -> Unit, viewModel: PostViewModel) {
+fun PostsScreen(onClick: (Int) -> Unit, state: PostScreenState, onFavoriteClick: (Int) -> Unit) {
 
   Scaffold(
     contentColor = Color.White,
@@ -24,8 +23,8 @@ fun PostsScreen(onClick: (Int) -> Unit, viewModel: PostViewModel) {
   ) { paddingValues ->
     PostsContent(
       onClick = onClick,
-      state = viewModel.postsState.value,
-      onFavoriteClick = { viewModel.toggleFavoriteState(it) },
+      state = state,
+      onFavoriteClick = onFavoriteClick,
       modifier = Modifier.padding(paddingValues)
     )
   }
